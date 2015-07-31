@@ -15,6 +15,7 @@ def send_to_sentry(args, stdout, stderr, exitcode, client_factory=raven.Client, 
     client = client_factory(dsn=config.get(args.project, 'url'))
 
     # set exitstatus tag for filtering
+    extra['exitcode'] = exitcode
     if exitcode == 0:
         client.tags['exitstatus'] = 'success'
     else:
