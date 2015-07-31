@@ -5,7 +5,7 @@ import os
 import raven
 import sys
 from subprocess import PIPE, Popen
-from ConfigParser import RawConfigParser
+from ConfigParser import RawConfigParser, NoSectionError
 
 def send_to_sentry(args, stdout, stderr, exitcode, client_factory=raven.Client, extra={}):
 
@@ -14,15 +14,21 @@ def send_to_sentry(args, stdout, stderr, exitcode, client_factory=raven.Client, 
     config.readfp(io.BytesIO(args.config.read()))
     client = client_factory(dsn=config.get(args.project, 'url'))
 
-    # set exitstatus tag for filtering
-    extra['exitcode'] = exitcode
-    if exitcode == 0:
-        client.tags['exitstatus'] = 'success'
-    else:
-        client.tags['exitstatus'] = 'failure'
+    # set tag based on exit code if configured
+    try:
+        tag = config.get('tag', 'name')
+        success = config.get('tag', 'success')
+        failure = config.get('tag', 'failure')
+        if exitcode == 0:
+            client.tags[tag] = success
+        else:
+            client.tags[tag] = failure
+    except NoSectionError:
+        pass
         
     # send to sentry
     if exitcode != 0 or args.ignore_exitcode:
+        extra['exitcode'] = exitcode
         if not args.ignore_stdout:
             extra['stdout'] = stdout
         if not args.ignore_stderr:

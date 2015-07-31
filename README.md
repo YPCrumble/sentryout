@@ -81,3 +81,22 @@ url=http://<sentry_dsn_url>
 [project name 2]                                                                       
 url=http://<other_sentry_dsn_url>
 ```
+
+You can also set the value of a tag based on the exit code of the executed command/script.
+To do this you have to configure the `[tag]` section in your config file:
+```
+[tag]
+name=exitstatus
+success=success
+failure=failure
+```
+
+If you wanted a tag `did it work?` with possible answers `yes` and `no`:
+```
+[tag]
+name=did it work?
+success=yes
+failure=no
+```
+
+If you do not want to set a tag simply omit this section from your configuration.
