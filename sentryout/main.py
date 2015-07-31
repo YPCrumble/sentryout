@@ -42,7 +42,7 @@ def send_to_sentry(args, stdout, stderr, exitcode, client_factory=raven.Client, 
                        extra = extra)
 
 def main():
-    parser = argparse.ArgumentParser(prog='to_sentry', description='dump command line sentry logger')
+    parser = argparse.ArgumentParser(prog='sentryout', description='dump command line sentry logger')
 
     parser.add_argument('-p', '--project', metavar='PROJECT',
                         required=True, type=str,
