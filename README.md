@@ -8,6 +8,14 @@ This is useful for unattended operations like cron jobs.
 
 ## Installation
 
+### Directly from github
+
+```
+pip install -U git+https://github.com/mattoberle/sentryout.git
+```
+
+### Locally via pip
+
 1. Create tarball from repo directory
 ```
 tar -czf sentryout-0.0.1.tar.gz sentryout/
