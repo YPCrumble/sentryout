@@ -14,19 +14,6 @@ This is useful for unattended operations like cron jobs.
 pip install -U git+https://github.com/mattoberle/sentryout.git
 ```
 
-### Locally via pip
-
-Create tarball from repo directory
-```
-tar -czf sentryout-0.0.1.tar.gz sentryout/
-```
-
-Install with pip
-
-```
-pip install -U sentryout-0.0.1.tar.gz
-```
-
 ## Use
 
 Example, execute a database backup and send the results to sentry:
