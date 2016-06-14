@@ -1,0 +1,5 @@
+build/
+dist/
+sentryout.egg-info/
+sentryout/__pycache__/
+*.pyc

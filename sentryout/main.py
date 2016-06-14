@@ -4,13 +4,17 @@ import os
 import raven
 import sys
 from subprocess import PIPE, Popen
-from ConfigParser import RawConfigParser, NoSectionError
+
+try:
+    from ConfigParser import RawConfigParser, NoSectionError
+except ImportError:
+    from configparser import RawConfigParser, NoSectionError
 
 def send_to_sentry(args, stdout, stderr, exitcode, client_factory=raven.Client, extra={}):
 
     # set up sentry client by parsing config file
     config = RawConfigParser()
-    config.readfp(io.BytesIO(args.config.read()))
+    config.read(args.config)
     client = client_factory(dsn=config.get(args.project, 'url'))
 
     # set tag based on exit code if configured
@@ -54,8 +58,7 @@ def main():
     parser.add_argument('-e', '--cmd', metavar='CMD',
                         required=True, type=str,
                         help='bash command or script to execute')
-
-    parser.add_argument('-c', '--config', metavar='PATH', type=argparse.FileType('r'),
+    parser.add_argument('-c', '--config', metavar='PATH', type=str,
                         default=os.path.join(os.path.expanduser('~'), '.sentryout.conf'),
                         help='location of Sentry configuration file')
 
