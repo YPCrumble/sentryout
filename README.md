@@ -57,7 +57,7 @@ optional arguments:
 ## Configuration File
 
 `sentryout` relies upon a configuration file for specifying the DSN url.
-The default config file should be placed at `/etc/sentryout.conf`.
+The default config file should be placed at `~/.sentryout.conf`.
 An alternative configuration file can be specified using the `--config` flag.
 
 The configuration file should be formatted like the example below:

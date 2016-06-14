@@ -1,6 +1,5 @@
 import argparse
 import io
-import logging
 import os
 import raven
 import sys
@@ -57,7 +56,7 @@ def main():
                         help='bash command or script to execute')
 
     parser.add_argument('-c', '--config', metavar='PATH', type=argparse.FileType('r'),
-                        default='/etc/sentryout.conf',
+                        default=os.path.join(os.path.expanduser('~'), '.sentryout.conf'),
                         help='location of Sentry configuration file')
 
     parser.add_argument('--ignore-environment',action='store_true',
