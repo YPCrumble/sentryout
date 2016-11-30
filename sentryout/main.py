@@ -15,7 +15,9 @@ def send_to_sentry(args, stdout, stderr, exitcode, client_factory=raven.Client, 
     # set up sentry client by parsing config file
     config = RawConfigParser()
     config.read(args.config)
-    client = client_factory(dsn=config.get(args.project, 'url'))
+    # override config file if dsn argument passed
+    dsn = args.dsn if args.dsn else config.get(args.project, 'url')
+    client = client_factory(dsn=dsn)
 
     # set tag based on exit code if configured
     try:
@@ -28,7 +30,7 @@ def send_to_sentry(args, stdout, stderr, exitcode, client_factory=raven.Client, 
             client.tags[tag] = failure
     except NoSectionError:
         pass
-        
+
     # send to sentry
     if exitcode != 0 or args.ignore_exitcode:
         extra['exitcode'] = exitcode
@@ -60,6 +62,9 @@ def main():
                         help='send results to sentry regardless of exit code')
 
     parser.add_argument('-v', '--version', action='version', version='0.0.3')
+
+    parser.add_argument('-d', '--dsn', metavar='DSN', type=str,
+                        help='specify dsn value using command line (oveerrides config file)')
 
     args = parser.parse_args()
 

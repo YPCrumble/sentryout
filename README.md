@@ -52,6 +52,7 @@ optional arguments:
   --ignore-stderr       do not send stderr output to sentry
   --ignore-stdout       do not send stdout output to sentry
   -v, --version         show program's version number and exit
+  -d, --dsn             specify dsn via command line (overrides `.sentryout.conf`)
 ```
 
 ## Configuration File
