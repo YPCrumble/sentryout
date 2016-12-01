@@ -16,7 +16,9 @@ def send_to_sentry(args, stdout, stderr, exitcode, client_factory=raven.Client, 
     config = RawConfigParser()
     config.read(args.config)
     # override config file if dsn argument passed
-    dsn = args.dsn if args.dsn else config.get(args.project, 'url')
+    dsn = args.dsn \
+        or config.get(args.project, 'url') \
+        or config.get(args.project, 'dsn')
     client = client_factory(dsn=dsn)
 
     # set tag based on exit code if configured
