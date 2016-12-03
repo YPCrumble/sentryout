@@ -33,8 +33,7 @@ sentryout --project 'my project' --message 'my message here' --command 'echo "ms
 For the full list of options use the `--help` flag:
 ```
 usage: to_sentry [-h] -p PROJECT -m MSG -e CMD [-c PATH]
-                 [--ignore-environment] [--ignore-exitcode] [--ignore-stderr]
-                 [--ignore-stdout] [-v]
+                 [--ignore-exitcode] [-v]
 
 dump command line sentry logger
 
@@ -47,10 +46,7 @@ optional arguments:
   -e CMD, --cmd CMD     bash command or script to execute
   -c PATH, --config PATH
                         location of Sentry configuration file
-  --ignore-environment  do not send environment variables to sentry
   --ignore-exitcode     send results to sentry regardless of exit code
-  --ignore-stderr       do not send stderr output to sentry
-  --ignore-stdout       do not send stdout output to sentry
   -v, --version         show program's version number and exit
 ```
 
